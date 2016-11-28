@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
+
 
 import {Observable} from 'rxjs/Observable'; 
 
 import { ProjectService } from '../../providers/project-service';
 import { AuthData } from '../../providers/auth-data';
+
+import { ProjectModalPage } from '../project-modal/project-modal';
 
 
 /*
@@ -26,7 +29,7 @@ export class HomePage {
   email: string;
   headerTitle: string;
 
-  constructor(public navCtrl: NavController,public projectService:ProjectService, public authData: AuthData ) {
+  constructor(public navCtrl: NavController,public modalCtrl: ModalController, public projectService:ProjectService, public authData: AuthData ) {
 
   }
 
@@ -45,6 +48,14 @@ export class HomePage {
   clickButton(project) {
     console.log(`clicking project`);
     console.log(project);
+  }
+
+  addNewProjectButton() {
+    //console.log(item);
+    let projectModal = this.modalCtrl.create(ProjectModalPage);
+    //console.log('created the modal');
+    projectModal.present();
+    //console.log('presented the modal');
   }
 
   populateProjects() {

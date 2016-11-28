@@ -7,6 +7,7 @@ import { BmcPage } from '../pages/bmc/bmc';
 import { PersonasPage } from '../pages/personas/personas';
 import { ProdFitPage } from '../pages/prod-fit/prod-fit';
 import { HomePage } from '../pages/home/home';
+import { ProjectModalPage } from '../pages/project-modal/project-modal';
 
 import { BasicHeaderComponent } from '../components/basic-header/basic-header';
 
@@ -38,6 +39,7 @@ export const firebaseConfig = {
     PersonasPage,
     ProdFitPage,
     HomePage,
+    ProjectModalPage,
     BasicHeaderComponent
   ],
   imports: [
@@ -52,7 +54,8 @@ export const firebaseConfig = {
     Page2,
     BmcPage,
     PersonasPage,
-    ProdFitPage
+    ProdFitPage,
+    ProjectModalPage
   ],
   providers: [AuthData, AccessService, ProjectService, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

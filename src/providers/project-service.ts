@@ -24,17 +24,21 @@ export class ProjectService {
   getProjects():Observable<any[]> {
     let p = this.accessService.getGroups().map((groups) => {
       return groups.map((group) => {
-        group.projects = this._getProjects(group.$key);
+        group.projects = this.getProjectsByGroup(group.$key);
         return group;
       });
     });
     return p;
   } 
 
-  _getProjects(group): FirebaseListObservable<any[]> {
+  getProjectsByGroup(group): FirebaseListObservable<any[]> {
     let p = this.af.database.list(`/groups/${group}`);
 
     return p;
+  }
+
+  getGroup(group): FirebaseObjectObservable<any> {
+    return this.af.database.object(`/groups/${group}`);
   }
 
 }
