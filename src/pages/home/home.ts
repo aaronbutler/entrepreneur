@@ -4,7 +4,7 @@ import { NavController } from 'ionic-angular';
 import {Observable} from 'rxjs/Observable'; 
 
 import { ProjectService } from '../../providers/project-service';
-
+import { AuthData } from '../../providers/auth-data';
 
 
 /*
@@ -19,18 +19,21 @@ import { ProjectService } from '../../providers/project-service';
 })
 export class HomePage {
 
-  pageTitle="Home!";
-  //groups: Array<any>;
+  
 
  
   groupObservable: Observable<any[]>;
+  email: string;
+  headerTitle: string;
 
-  constructor(public navCtrl: NavController,public projectService:ProjectService ) {
+  constructor(public navCtrl: NavController,public projectService:ProjectService, public authData: AuthData ) {
 
   }
 
   ionViewDidLoad() {
     console.log('Hello HomePage Page');
+    this.email = this.authData.getUserEmail();
+    this.headerTitle = `${this.email}'s Projects`;
     this.populateProjects();
  
   }
