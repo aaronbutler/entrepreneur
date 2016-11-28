@@ -11,6 +11,8 @@ import { HomePage } from '../pages/home/home';
 import { BasicHeaderComponent } from '../components/basic-header/basic-header';
 
 import { AuthData } from '../providers/auth-data';
+import { AccessService } from '../providers/access-service';
+import { ProjectService } from '../providers/project-service';
 
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
@@ -52,6 +54,6 @@ export const firebaseConfig = {
     PersonasPage,
     ProdFitPage
   ],
-  providers: [AuthData, {provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [AuthData, AccessService, ProjectService, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}

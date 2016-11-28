@@ -3,6 +3,8 @@ import { Component,Input, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { AuthData } from '../../providers/auth-data';
+import { ProjectService } from '../../providers/project-service';
+
 import { Page1 } from '../../pages/page1/page1';
 
 /*
@@ -20,7 +22,7 @@ export class BasicHeaderComponent implements OnInit {
   @Input()
   title: string;
 
-  constructor(public navCtrl: NavController, public authData: AuthData) {
+  constructor(public navCtrl: NavController, public authData: AuthData, public projectService: ProjectService) {
     //console.log('Hello BasicHeader Component');
     //this.text = 'Hello World';
   }
@@ -31,6 +33,15 @@ export class BasicHeaderComponent implements OnInit {
     if(!this.authData.getUserEmail()){     
       this.navCtrl.setRoot( Page1 );
     }
+    
+    
+
+    
+
+
+
+
+    
   }
 
   logoutUser() {
@@ -38,6 +49,7 @@ export class BasicHeaderComponent implements OnInit {
   }
   
   loggedIn() {
+    //console.log(this.accessService.getGroups());
     return this.authData.getUserEmail();
   }
 

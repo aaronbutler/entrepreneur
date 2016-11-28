@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { AuthData } from '../../providers/auth-data';
-import { Page1 } from '../page1/page1';
+import {Observable} from 'rxjs/Observable'; 
+
+import { ProjectService } from '../../providers/project-service';
+
+
 
 /*
   Generated class for the Home page.
@@ -17,25 +20,32 @@ import { Page1 } from '../page1/page1';
 export class HomePage {
 
   pageTitle="Home!";
+  //groups: Array<any>;
 
-  constructor(public navCtrl: NavController, public authData: AuthData) {
+ 
+  groupObservable: Observable<any[]>;
+
+  constructor(public navCtrl: NavController,public projectService:ProjectService ) {
 
   }
 
   ionViewDidLoad() {
     console.log('Hello HomePage Page');
-
-    if(!this.authData.getUserEmail()){     
-      this.navCtrl.setRoot( Page1 );
-    }
+    this.populateProjects();
+ 
   }
 
-  logoutUser() {
-    console.log(this.authData.logoutUser());
+  click(){
+    console.log(this.groupObservable);
   }
-  
-  loggedIn() {
-    return this.authData.getUserEmail();
+
+  clickButton(project) {
+    console.log(`clicking project`);
+    console.log(project);
+  }
+
+  populateProjects() {
+    this.groupObservable = this.projectService.getProjects();
   }
 
 }
