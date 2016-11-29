@@ -20,10 +20,16 @@
 		<ion-input [(ngModel)] = newP.description type="text" ></ion-input>
 	</ion-item>
 
-  <ion-item>
+  <!--<ion-item>
 		<ion-label stacked>Group</ion-label>
 		<ion-input [(ngModel)] = newP.group type="text" ></ion-input>
-	</ion-item>
+	</ion-item>-->
+  <ion-item>
+    <ion-label stacked>Group</ion-label>
+    <ion-select [(ngModel)]= newP.group type="text">
+      <ion-option *ngFor="let g of accessGroups | async">{{g.$key}}</ion-option>
+    </ion-select>
+  </ion-item>
 
 
 </ion-content>

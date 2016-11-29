@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, ViewController } from 'ionic-angular';
 
-import { ProjectService } from '../../providers/project-service';
+import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 
+import { ProjectService } from '../../providers/project-service';
+import { AccessService } from '../../providers/access-service';
 /*
   Generated class for the ProjectModal page.
 
@@ -16,11 +18,13 @@ import { ProjectService } from '../../providers/project-service';
 export class ProjectModalPage {
 
   newP = {};
+  accessGroups: FirebaseListObservable<any[]>;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public projectService: ProjectService) {}
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public projectService: ProjectService, public accessService: AccessService) {}
 
   ionViewDidLoad() {
     console.log('Hello ProjectModalPage Page');
+    this.accessGroups = this.accessService.getGroups();
   }
 
   click() {
