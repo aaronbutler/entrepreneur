@@ -29,5 +29,10 @@ export class AccessService {
     return groups;
   }
 
+  getGroupsObj(): FirebaseObjectObservable<any> {
+    let user = this.mungeEmail();
+    return this.af.database.object(`/usergroups/${user}/groups`);
+  }
+
 
 }

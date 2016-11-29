@@ -16,36 +16,34 @@
   </ion-list>-->
 
 
-  <ion-list *ngFor="let group of groupObservable | async">
-    <ion-row>
-      <ion-col width-25>
-      <ion-item>
-        <button ion-button>Edit Group: {{group.$key}}</button>
-      </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-item *ngFor="let p of group.projects | async">
-      <ion-row>
-        <ion-item>
+  <ion-item-group *ngFor="let group of groupObservable | async">
+
+    <ion-item-divider light (click)="click()">Edit Group: {{group.$key}}</ion-item-divider>
+
+    <ion-row *ngFor="let p of group.projects | async" >
+      <template [ngIf]="unoccupied(p)">
+        <ion-item (click)="clickButton(p)">{{p.$key}} -- {{p.overview.description}}</ion-item>
+      </template>
+        <!--<ion-item *ngIf="unoccupied(p)" (click)="clickButton(p)">{{p.$key}} -- {{p.overview.description}}
           <button ion-button block (click)="clickButton(p)">
             <ion-icon name="open"></ion-icon>
             <div class="space">{{p.$key}}</div>
             <div class="space">{{p.overview.description}}</div>  
           </button>
-        </ion-item>
-      </ion-row>
-    </ion-item>
-  </ion-list>
+        </ion-item>-->
+     
+    </ion-row>
+  </ion-item-group>
 
 
    </ion-grid>
 
    
-  <ion-fab right bottom>
+  <ion-fab right bottom class="fab-cont">
     <button ion-fab color="light"><ion-icon name="arrow-dropleft"></ion-icon></button>
     <ion-fab-list side="left">
-      <button ion-fab mini class="adder" (click)="addNewProjectButton()"><ion-icon name="add-circle"></ion-icon>Project</button>
-      <button ion-fab mini class="adder"><ion-icon name="add-circle"></ion-icon>Group</button>
+      <button ion-fab mini class="adder" (click)="addNewProjectButton()"><ion-icon class="stack" name="add-circle"></ion-icon><div class="stack">Project</div></button>
+      <button ion-fab mini class="adder" (click)="addNewGroupButton()"><ion-icon name="add-circle" class="stack"></ion-icon><div stack="class">Group</div></button>
       
     </ion-fab-list>
   </ion-fab>

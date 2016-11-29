@@ -8,7 +8,7 @@ import { ProjectService } from '../../providers/project-service';
 import { AuthData } from '../../providers/auth-data';
 
 import { ProjectModalPage } from '../project-modal/project-modal';
-
+import { GroupModalPage } from '../group-modal/group-modal';
 
 /*
   Generated class for the Home page.
@@ -56,6 +56,16 @@ export class HomePage {
     //console.log('created the modal');
     projectModal.present();
     //console.log('presented the modal');
+  }
+
+  addNewGroupButton() {
+    let groupModal = this.modalCtrl.create(GroupModalPage);
+    groupModal.present();
+  }
+
+  unoccupied(p): boolean {
+    if(p.$key == "occupied") return false;
+    return true;
   }
 
   populateProjects() {

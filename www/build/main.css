@@ -21759,6 +21759,10 @@ page-home .space {
   margin: 5px;
 }
 
+page-home .fab-cont {
+  margin: 1.2em;
+}
+
 page-page1 form {
   margin-bottom: 32px;
 }

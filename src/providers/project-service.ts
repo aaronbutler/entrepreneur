@@ -41,4 +41,8 @@ export class ProjectService {
     return this.af.database.object(`/groups/${group}`);
   }
 
+  addGroup(group) {
+    this.af.database.object(`/groups`).update(group);
+  }
+
 }
