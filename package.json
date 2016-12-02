@@ -5,7 +5,14 @@
   "private": true,
   "scripts": {
     "ionic:build": "ionic-app-scripts build --dev",
-    "ionic:serve": "ionic-app-scripts serve"
+    "ionic:serve": "ionic-app-scripts serve",
+    "watch": "ionic-app-scripts watch",
+    "serve:before": "watch",
+    "emulate:before": "build",
+    "deploy:before": "build",
+    "build:before": "build",
+    "run:before": "ionic:build",
+    "run:after": "watch"
   },
   "dependencies": {
     "@angular/common": "2.1.1",
@@ -37,6 +44,8 @@
     "cordova-plugin-statusbar",
     "cordova-plugin-device",
     "cordova-plugin-splashscreen",
+    "cordova-plugin-compat",
+    "cordova-plugin-camera",
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [],

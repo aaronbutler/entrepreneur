@@ -9,5 +9,16 @@
 </ion-header>
 
 <ion-content padding>
+  
+  <button ion-button (click)="click()">Click!</button>
+  
+  <ion-grid padding>
+    <ion-row *ngFor="let person of persons | async">
+      <ion-item>{{person.$key}}</ion-item>
+      <ion-item><img [src]="person.picUrl"></ion-item>
 
+    </ion-row>
+  
+  </ion-grid>
+  <!--<img src="https://firebasestorage.googleapis.com/v0/b/entre-de2b0.appspot.com/o/test1%2Fmlb.png?alt=media&token=80bbcd09-06ad-495c-b321-9d712d4bbe19">-->
 </ion-content>

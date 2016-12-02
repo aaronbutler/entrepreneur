@@ -15,6 +15,8 @@ import { BasicHeaderComponent } from '../components/basic-header/basic-header';
 import { AuthData } from '../providers/auth-data';
 import { AccessService } from '../providers/access-service';
 import { ProjectService } from '../providers/project-service';
+import { ImageService } from '../providers/image-service';
+import { PersonaService } from '../providers/persona-service';
 
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
@@ -60,6 +62,6 @@ export const firebaseConfig = {
     ProjectModalPage,
     GroupModalPage
   ],
-  providers: [AuthData, AccessService, ProjectService, {provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [AuthData, AccessService, ProjectService, ImageService, PersonaService, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}

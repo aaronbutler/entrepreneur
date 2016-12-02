@@ -45,4 +45,8 @@ export class ProjectService {
     this.af.database.object(`/groups`).update(group);
   }
 
+  getProject(group,project): FirebaseObjectObservable<any> {
+    return this.af.database.object(`groups/${group}/${project}`);
+  }
+
 }
