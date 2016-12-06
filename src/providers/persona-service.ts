@@ -47,6 +47,10 @@ export class PersonaService {
     return this.getPersona(group, project, name);
   }
 
+  addPersonaFBKey(group: string, project: string, name: string) {
+    this.getPersonas(group,project).push({"name":name,"placeholder": true});
+  }
+
   getPersona(group: string, project: string, name: string):FirebaseObjectObservable<any> {
     return this.af.database.object(`/groups/${group}/${project}/personas/${name}`);
   }

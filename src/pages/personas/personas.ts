@@ -1,16 +1,19 @@
 import { Component,Inject } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import {Observable} from 'rxjs/Observable'; 
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
 
 import { AuthData } from '../../providers/auth-data';
 //import { ProjectService } from '../../providers/project-service';
 import { ImageService } from '../../providers/image-service';
 import { PersonaService } from '../../providers/persona-service';
+import { StatusService } from '../../providers/status-service';
 
 import { Page1 } from '../page1/page1';
 
-import { FirebaseApp, FirebaseListObservable } from 'angularfire2';
+import { FirebaseApp, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
 import { Camera } from 'ionic-native';
 
@@ -30,11 +33,24 @@ import { Camera } from 'ionic-native';
 export class PersonasPage {
   pic: string;
   persons: FirebaseListObservable<any[]>;
+  currentProj: FirebaseObjectObservable<any>;
+  currentPersons: Observable<any[]>;
 
   //this may be great:
   //http://stackoverflow.com/questions/39067832/accessing-firebase-storage-with-angularfire2-angular2-rc-5
-  constructor(public navCtrl: NavController, public authData: AuthData, public imageService: ImageService, public personaService: PersonaService, @Inject(FirebaseApp) public firebaseApp: any) {
+  constructor(public navCtrl: NavController, public authData: AuthData, public imageService: ImageService, public statusService: StatusService,public personaService: PersonaService, @Inject(FirebaseApp) public firebaseApp: any) {
     console.log(this.firebaseApp);
+    this.currentProj = this.statusService.getCurrentProject();
+    this.currentProj.subscribe((proj) => {
+      this.currentPersons = proj.personas;
+      
+    });
+    /*this.statusService.getCurrentProject().subscribe((proj) => {
+      console.log(proj.personas);
+      this.currentPersons = proj.personas.map((persona) => {
+        return persona;
+      });
+    })*/
     //this.firebaseApp = firebaseApp;
   }
 
@@ -50,10 +66,12 @@ export class PersonasPage {
   }
 
   _populatePersonas(){
-    this.persons = this.personaService.getPersonas("pretend2","p");
-    this.persons.subscribe((person) => {
-      console.log(person);
-    });
+    //this.persons = this.personaService.getPersonas("pretend2","p");
+    this.persons = this.personaService.getPersonas(this.statusService.getGroupID(),this.statusService.getProjID());
+  }
+
+  simpleAddPersona(){
+    this.personaService.addPersona(this.statusService.getGroupID(),this.statusService.getProjID(),this._generateRandomName());
   }
 
   click() {
@@ -104,6 +122,10 @@ export class PersonasPage {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
 
     return text;
+  }
+
+  clickP(person){
+    console.log(person);
   }
 
 }

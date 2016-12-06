@@ -17,13 +17,16 @@ import { AccessService } from '../../providers/access-service';
 })
 export class ProjectModalPage {
 
-  newP = {};
+  newP: any;
   accessGroups: FirebaseListObservable<any[]>;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public projectService: ProjectService, public accessService: AccessService) {}
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public projectService: ProjectService, public accessService: AccessService) {
+    this.newP = {};
+  }
 
   ionViewDidLoad() {
     console.log('Hello ProjectModalPage Page');
+    
     this.accessGroups = this.accessService.getGroups();
   }
 
@@ -45,7 +48,8 @@ export class ProjectModalPage {
   done() {
     console.log(this.newP);
     let p = {};
-    p[this.newP["title"]] = {"overview": {"description": this.newP["description"]}};
+    let d = new Date();
+    p[this.newP["title"]] = {"overview": {"description": this.newP["description"],"creationDate":d}};
     this.projectService.getGroup(this.newP["group"]).update(p);
     this.viewCtrl.dismiss();
   }

@@ -1,5 +1,5 @@
 import { NgModule, ErrorHandler } from '@angular/core';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, NavController } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
@@ -7,6 +7,7 @@ import { BmcPage } from '../pages/bmc/bmc';
 import { PersonasPage } from '../pages/personas/personas';
 import { ProdFitPage } from '../pages/prod-fit/prod-fit';
 import { HomePage } from '../pages/home/home';
+import { ProjectOverviewPage } from '../pages/project-overview/project-overview';
 import { ProjectModalPage } from '../pages/project-modal/project-modal';
 import { GroupModalPage } from '../pages/group-modal/group-modal';
 
@@ -17,6 +18,7 @@ import { AccessService } from '../providers/access-service';
 import { ProjectService } from '../providers/project-service';
 import { ImageService } from '../providers/image-service';
 import { PersonaService } from '../providers/persona-service';
+import { StatusService } from '../providers/status-service';
 
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
@@ -42,6 +44,7 @@ export const firebaseConfig = {
     PersonasPage,
     ProdFitPage,
     HomePage,
+    ProjectOverviewPage,
     ProjectModalPage,
     GroupModalPage,
     BasicHeaderComponent
@@ -59,9 +62,10 @@ export const firebaseConfig = {
     BmcPage,
     PersonasPage,
     ProdFitPage,
+    ProjectOverviewPage,
     ProjectModalPage,
     GroupModalPage
   ],
-  providers: [AuthData, AccessService, ProjectService, ImageService, PersonaService, {provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [AuthData, AccessService, ProjectService, ImageService, PersonaService, StatusService, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { AuthData } from '../../providers/auth-data';
+import { StatusService } from '../../providers/status-service';
 import { Page1 } from '../page1/page1';
 
 /*
@@ -16,7 +17,7 @@ import { Page1 } from '../page1/page1';
 })
 export class ProdFitPage {
 
-  constructor(public navCtrl: NavController, public authData: AuthData) {}
+  constructor(public navCtrl: NavController, public authData: AuthData,public statusService: StatusService) {}
 
   ionViewDidLoad() {
     console.log('Hello ProdFitPage Page');

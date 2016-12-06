@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Component, ViewChild, Inject } from '@angular/core';
+import { Nav, NavController, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { Page1 } from '../pages/page1/page1';
@@ -8,6 +8,8 @@ import { BmcPage } from '../pages/bmc/bmc';
 import { PersonasPage } from '../pages/personas/personas';
 import { ProdFitPage } from '../pages/prod-fit/prod-fit';
 import { HomePage } from '../pages/home/home';
+
+import { StatusService } from '../providers/status-service';
 
 import { AngularFire } from 'angularfire2';
 
@@ -22,7 +24,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public af: AngularFire) {
+  constructor(public platform: Platform, public af: AngularFire, public statusService: StatusService) {
     this.initializeApp(af);
 
     // used for an example of ngFor and navigation
@@ -61,6 +63,13 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.nav.setRoot(page.component).then((data) => {
+      console.log('openPage setting root');
+      console.log(data);
+      console.log(this.statusService);
+    })
+    //this.nav.push(page.component);
   }
+
+  
 }

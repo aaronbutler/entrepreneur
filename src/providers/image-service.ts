@@ -21,7 +21,7 @@ export class ImageService {
   };*/
 
   constructor(public personaService: PersonaService, @Inject(FirebaseApp) public firebaseApp: any) {
-    console.log('Hello ImageService Provider');
+    console.log('Hello ImageService Provider!');
   }
 
   skipCam(group: string, project: string, person: string){
@@ -47,16 +47,31 @@ export class ImageService {
         targetHeight: 500
     };
 
-
-    this._takeCamPic(defaultOptions).then((imageData) => {
+    let camPromise = this._takeCamPic(defaultOptions);
+    camPromise.catch((err) => {
+      console.log('campromise errored out');
+      console.log(err);
+      console.log(err.message);
+    });
+    //camPromise.err()
+    let storePromise = camPromise.then((imageData) => {
+      console.log('took a picture!');
       return this._storeImage(imageData, `${group}_${project}`, person, asString)
-    }).then((savedPicture) => {
+    },(err) => {
+      console.log('error in campromise.then');
+      console.log(err);
+      console.log(err.message);
+    });
+    storePromise.then((savedPicture) => {
     //this._storeImage(base64Image, `${group}_${project}`, person, asString).then((savedPicture) => {
+      console.log('saved a picture!');
       let url = savedPicture.downloadURL;
       console.log(url);
       this._storeLink(url,group,project, person);
     },(err) => {
+      console.log('error in storepromise.then');
       console.log(err);
+      console.log(err.message);
     });
     
     
@@ -64,6 +79,7 @@ export class ImageService {
   }
 
   _takeCamPic(options: any): Promise<any> {
+    console.log('will take a picture?');
     return Camera.getPicture(options);
   }
 

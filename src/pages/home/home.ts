@@ -6,9 +6,11 @@ import {Observable} from 'rxjs/Observable';
 
 import { ProjectService } from '../../providers/project-service';
 import { AuthData } from '../../providers/auth-data';
+import { StatusService } from '../../providers/status-service';
 
 import { ProjectModalPage } from '../project-modal/project-modal';
 import { GroupModalPage } from '../group-modal/group-modal';
+import { ProjectOverviewPage } from '../project-overview/project-overview';
 
 /*
   Generated class for the Home page.
@@ -29,7 +31,7 @@ export class HomePage {
   email: string;
   headerTitle: string;
 
-  constructor(public navCtrl: NavController,public modalCtrl: ModalController, public projectService:ProjectService, public authData: AuthData ) {
+  constructor(public navCtrl: NavController,public modalCtrl: ModalController, public projectService:ProjectService, public authData: AuthData, public statusService: StatusService ) {
 
   }
 
@@ -41,8 +43,8 @@ export class HomePage {
  
   }
 
-  click(){
-    console.log(this.groupObservable);
+  click(group){
+    console.log(group);
   }
 
   clickButton(project) {
@@ -70,6 +72,25 @@ export class HomePage {
 
   populateProjects() {
     this.groupObservable = this.projectService.getProjects();
+    //console.log(this.groupObservable);
+  }
+
+  openProject(group,project) {
+    console.log(project);
+    //getProject(group,project)
+    this.statusService.setProject(this.projectService.getProject(group.$key,project.$key));
+    this.statusService.setGroupID(group.$key);
+    this.statusService.setProjID(project.$key);
+    this.navCtrl.setRoot(ProjectOverviewPage);
+  }
+
+  logoutUser() {
+    console.log(this.authData.logoutUser());
+  }
+  
+  loggedIn() {
+    //console.log(this.accessService.getGroups());
+    return this.authData.getUserEmail();
   }
 
 }

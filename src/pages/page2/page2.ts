@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 
+import { StatusService } from '../../providers/status-service';
+
 @Component({
   selector: 'page-page2',
   templateUrl: 'page2.html'
@@ -11,7 +13,7 @@ export class Page2 {
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public statusService: StatusService) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
 

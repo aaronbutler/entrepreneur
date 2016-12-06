@@ -10,15 +10,36 @@
 
 <ion-content padding>
   
-  <button ion-button (click)="click()">Click!</button>
+  <button ion-button (click)="simpleAddPersona()">Click!</button>
   
-  <ion-grid padding>
+  <!--<ion-grid padding>
     <ion-row *ngFor="let person of persons | async">
       <ion-item>{{person.$key}}</ion-item>
       <ion-item><img [src]="person.picUrl"></ion-item>
 
     </ion-row>
   
+  </ion-grid>-->
+  <!--<ion-item>{{(currentPersons | async) | json}}</ion-item>-->
+  <!--<ion-item>{{currentPersons | json}}</ion-item>-->
+  <ion-grid>
+    <ion-list>
+      <!--<ion-card *ngFor="let person of persons | async">-->
+      <ion-card *ngFor="let person of persons | async">
+        <!--<ion-card-header><button ion-item><div>{{person.$key}} -- Job Title</div><div>Pull quote</div></button></ion-card-header>-->
+        <ion-card-header>{{person|json}}</ion-card-header>
+        <img [src]="person.picUrl">
+        <ion-card-content>
+          <ion-row>
+            <ion-item>Demographics</ion-item>
+          </ion-row>
+          <ion-row>
+            <ion-col><ion-item>Goals</ion-item></ion-col>
+            <ion-col><ion-item>Concerns</ion-item></ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
   </ion-grid>
   <!--<img src="https://firebasestorage.googleapis.com/v0/b/entre-de2b0.appspot.com/o/test1%2Fmlb.png?alt=media&token=80bbcd09-06ad-495c-b321-9d712d4bbe19">-->
 </ion-content>

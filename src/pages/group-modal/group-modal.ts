@@ -15,13 +15,16 @@ import { AccessService } from '../../providers/access-service';
 })
 export class GroupModalPage {
 
-  newG = {};
+  newG: any;
   occupied = {"occupied": {"overview": {"description": true}}};
 
-  constructor(public navCtrl: NavController,public viewCtrl:ViewController,  public projectService: ProjectService, public accessService: AccessService) {}
+  constructor(public navCtrl: NavController,public viewCtrl:ViewController,  public projectService: ProjectService, public accessService: AccessService) {
+    this.newG = {};
+  }
 
   ionViewDidLoad() {
     console.log('Hello GroupModalPage Page');
+    
   }
 
   done() {
