@@ -8,6 +8,7 @@ import {Observable} from 'rxjs/Observable';
 import { ProjectService } from '../../providers/project-service';
 import { AccessService } from '../../providers/access-service';
 import { GroupService } from '../../providers/group-service';
+import { LogService } from '../../providers/log-service';
 
 /*
   Generated class for the ProjectModal page.
@@ -25,12 +26,12 @@ export class ProjectModalPage {
   accessGroups: FirebaseListObservable<any[]>;
   groupServiceGroups: Observable<any[]>;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public projectService: ProjectService, public accessService: AccessService, public groupService: GroupService) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public log: LogService, public projectService: ProjectService, public accessService: AccessService, public groupService: GroupService) {
     this.newP = {};
   }
 
   ionViewDidLoad() {
-    console.log('Hello ProjectModalPage Page');
+
     
     this.accessGroups = this.accessService.getGroups();
     this.groupServiceGroups = this.groupService.getGroups();
@@ -40,13 +41,13 @@ export class ProjectModalPage {
     let name=this._generateRandomName();
     let p = {};
     p[name] = {"overview": {"description":"heres a description for you"}};
-    console.log(p)
+    this.log.log(3,"ProjectModalPage","click","p",p)
     this.projectService.getGroup("aaron@thoroughcio_com").update(p);
   }
 
   dismiss() {
    //let data = { 'foo': 'bar' };
-    console.log('dismissing');
+    this.log.log(1,"ProjectModalPage","dismiss",'dismissing');
     this.viewCtrl.dismiss();
   }
 

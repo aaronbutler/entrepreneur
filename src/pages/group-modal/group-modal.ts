@@ -4,6 +4,7 @@ import { ProjectService } from '../../providers/project-service';
 import { AccessService } from '../../providers/access-service';
 import { GroupService } from '../../providers/group-service';
 import { UserService } from '../../providers/user-service';
+import { LogService } from '../../providers/log-service';
 
 /*
   Generated class for the GroupModal page.
@@ -20,12 +21,11 @@ export class GroupModalPage {
   newG: any;
   occupied = {"occupied": {"overview": {"description": true}}};
 
-  constructor(public navCtrl: NavController,public viewCtrl:ViewController,  public projectService: ProjectService, public accessService: AccessService,public groupService: GroupService,public userService: UserService) {
+  constructor(public navCtrl: NavController,public viewCtrl:ViewController,  public log: LogService, public projectService: ProjectService, public accessService: AccessService,public groupService: GroupService,public userService: UserService) {
     this.newG = {};
   }
 
   ionViewDidLoad() {
-    console.log('Hello GroupModalPage Page');
     
   }
 

@@ -5,6 +5,7 @@ import { NavController, ModalController } from 'ionic-angular';
 import { StatusService } from '../../providers/status-service';
 import { UserService } from '../../providers/user-service';
 import { GroupService } from '../../providers/group-service';
+import { LogService } from '../../providers/log-service';
 
 import { ProjectOverviewPage } from '../project-overview/project-overview';
 import { ProjectModalPage } from '../project-modal/project-modal';
@@ -26,7 +27,7 @@ export class Page2 {
   groups: FirebaseListObservable<any[]>;
   groupObservable: Observable<any[]>;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public statusService: StatusService, public userService: UserService, public groupService: GroupService) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public statusService: StatusService, public log: LogService, public userService: UserService, public groupService: GroupService) {
     // If we navigated to this page, we will have an item available as a nav param
     //this.selectedItem = navParams.get('item');
 
@@ -46,10 +47,11 @@ export class Page2 {
     this.user = this.userService.getUserObj();
     this.groups = this.userService.getUsersGroups();
     this.groupObservable = this.groupService.getUsersProjects();
+    this.log.log(3,"Page2","constructor",this.user,this.groups,this.groupObservable);
   }
 
   openProject(group,project) {
-    console.log(project);
+    this.log.log(3,"Page2","openProject",project);
     //getProject(group,project)
     //this.statusService.setProject(this.projectService.getProject(group.$key,project.$key));
     this.statusService.setGroupID(group.$key);
@@ -76,8 +78,8 @@ export class Page2 {
   }
 
   click() {
-    console.log(this.user);
-    console.log(this.groups);
-    console.log(this.groupObservable);
+    this.log.log(3,"Page2","click","user",this.user);
+    this.log.log(3,"Page2","click","groups",this.groups);
+    this.log.log(3,"Page2","click","groupObservable",this.groupObservable);
   }
 }

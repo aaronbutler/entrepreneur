@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 
 
 import { UserService } from './user-service';
+import { LogService } from './log-service';
 
 /*
   Generated class for the GroupService provider.
@@ -16,8 +17,8 @@ import { UserService } from './user-service';
 @Injectable()
 export class GroupService {
 
-  constructor(public af: AngularFire, public userService: UserService) {
-    console.log('Hello GroupService Provider');
+  constructor(public af: AngularFire, public userService: UserService, public log: LogService) {
+    
   }
 
   getUsersProjects():Observable<any[]> {

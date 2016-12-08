@@ -3,7 +3,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-item>{{(user | async) | json}}</ion-item>
+  <ion-item (click)="click()">{{(user | async) | json}}</ion-item>
   <ion-item> {{(groups | async) | json}}</ion-item>
   <!--<ion-item>{{(projects | async) | json}}</ion-item>-->
   <ion-item>{{(user | async)?.name}}</ion-item>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 
 import { AuthData } from './auth-data';
+import { LogService } from './log-service';
 
 /*
   New user creation will be manual and by invitation only for a while.
@@ -9,8 +10,8 @@ import { AuthData } from './auth-data';
 @Injectable()
 export class UserService {
 
-  constructor(public af:AngularFire, public authData: AuthData) {
-    console.log('Hello UserService Provider');
+  constructor(public af:AngularFire, public authData: AuthData, public log: LogService) {
+    
   }
 
   getUsersGroups(): FirebaseListObservable<any[]> {
@@ -21,7 +22,7 @@ export class UserService {
   
   getUserObj() {
     let uid = this.authData.getUid();
-    console.log(`uid: ${uid}`);
+    this.log.log(3,"UserService","getUserObj","uid",uid);
     return this.af.database.object(`/users/${uid}`);
   }
 }

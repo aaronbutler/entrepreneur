@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFire } from 'angularfire2';
 
+import { LogService } from './log-service';
+
 /*
   Generated class for the AuthData provider.
 
@@ -12,8 +14,8 @@ export class AuthData {
 
   fireAuth: any;
 
-  constructor(public af: AngularFire) {
-    console.log('Hello AuthData Provider');
+  constructor(public af: AngularFire,public log: LogService) {
+    
     af.auth.subscribe( user => {
       if (user) {
         this.fireAuth = user.auth;
@@ -28,14 +30,14 @@ export class AuthData {
 
   logoutUser(): any {
     let li = this.af.auth.logout();
-    console.log('logging out');
+    this.log.log(1,"AuthData","logoutUser",'logging out');
     this.fireAuth = null;
     this.printUser();
     return li;
   }
 
   printUser() {
-    console.log(this.fireAuth);
+    this.log.log(5,"AuthData","printUser",this.fireAuth);
     //return null;
   }
 

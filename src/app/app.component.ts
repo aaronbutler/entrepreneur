@@ -11,6 +11,7 @@ import { HomePage } from '../pages/home/home';
 import { ProjectOverviewPage } from '../pages/project-overview/project-overview';
 
 import { StatusService } from '../providers/status-service';
+import { LogService } from '../providers/log-service';
 
 import { AngularFire } from 'angularfire2';
 
@@ -25,7 +26,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public af: AngularFire, public statusService: StatusService) {
+  constructor(public platform: Platform, public af: AngularFire, public statusService: StatusService, public log: LogService) {
     this.initializeApp(af);
 
     // used for an example of ngFor and navigation
@@ -42,6 +43,9 @@ export class MyApp {
   }
 
   initializeApp(af: AngularFire) {
+    this.log.setLevel(3);
+    this.log.log(1,"MyApp", "initializeApp","test low level log");
+    this.log.log(5,"MyApp", "initializeApp","test high level log");
      af.auth.subscribe( user => {
         if (user) {
           //this.rootPage = HomePage;
@@ -67,7 +71,7 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component).then((data) => {
-      console.log('openPage setting root');
+      this.log.log(3,"MyApp","openPage",'setting root',page.component);
       console.log(data);
       console.log(this.statusService);
     })
