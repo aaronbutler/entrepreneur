@@ -1,5 +1,5 @@
 import { Component,Inject } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,ModalController } from 'ionic-angular';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -12,6 +12,7 @@ import { PersonaService } from '../../providers/persona-service';
 import { StatusService } from '../../providers/status-service';
 
 import { Page1 } from '../page1/page1';
+import { PersonaModalPage } from '../persona-modal/persona-modal';
 
 import { FirebaseApp, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
@@ -35,15 +36,16 @@ export class PersonasPage {
   persons: FirebaseListObservable<any[]>;
   currentProj: FirebaseObjectObservable<any>;
   currentPersons: Observable<any[]>;
+  editable: boolean;
 
   //this may be great:
   //http://stackoverflow.com/questions/39067832/accessing-firebase-storage-with-angularfire2-angular2-rc-5
-  constructor(public navCtrl: NavController, public authData: AuthData, public imageService: ImageService, public statusService: StatusService,public personaService: PersonaService, @Inject(FirebaseApp) public firebaseApp: any) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public authData: AuthData, public imageService: ImageService, public statusService: StatusService,public personaService: PersonaService, @Inject(FirebaseApp) public firebaseApp: any) {
     console.log(this.firebaseApp);
     this.currentProj = this.statusService.getCurrentProject();
     this.currentProj.subscribe((proj) => {
       this.currentPersons = proj.personas;
-      
+      this.editable = false;
     });
     /*this.statusService.getCurrentProject().subscribe((proj) => {
       console.log(proj.personas);
@@ -71,8 +73,37 @@ export class PersonasPage {
   }
 
   simpleAddPersona(){
-    this.personaService.addPersona(this.statusService.getGroupID(),this.statusService.getProjID(),this._generateRandomName());
+    //this.personaService.addPersona(this.statusService.getGroupID(),this.statusService.getProjID(),this._generateRandomName());
+    this.imageService.skipCam(this.statusService.getGroupID(),this.statusService.getProjID(),this._generateRandomName());
   }
+
+  toggleEditable() {
+    this.editable = !this.editable;
+  }
+
+  clickPersona(person) {
+    console.log('clickPersonas:');
+    console.log(person);
+    person.name = person.$key;
+    //person.$key = null;
+    let personaModal = this.modalCtrl.create(PersonaModalPage,{"person":person});
+    personaModal.present();
+  }
+
+  changedPersona(p: any) {
+    console.log('personas caught a changed persona event');
+    console.log(p);
+  }
+
+  addPersonaButton(){
+    let personaModal = this.modalCtrl.create(PersonaModalPage);
+    personaModal.present();
+  }
+
+  /*clickedPerson(p: any) {
+    console.log("personas caught a clickedperson event");
+    console.log(p);
+  }*/
 
   click() {
     console.log('clicked in personas');

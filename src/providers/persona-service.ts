@@ -39,13 +39,17 @@ export class PersonaService {
     //this.personaService.savePic(url,group,project,name)
   }
 
-  addPersona(group: string, project:string, name:string):FirebaseObjectObservable<any> {
+  addPersona(group: string, project:string, name:string, data: any):FirebaseObjectObservable<any> {
     let p = {};
-    p[name] = {"placeholder": true};
+    if(data != undefined) {
+      p[name] = data;
+    }
+    else p[name] = {"placeholder": true};
     let po = this.getPersonasObj(group, project);
     po.update(p);
     return this.getPersona(group, project, name);
   }
+
 
   addPersonaFBKey(group: string, project: string, name: string) {
     this.getPersonas(group,project).push({"name":name,"placeholder": true});

@@ -1,0 +1,25 @@
+<!--
+  Generated template for the Persona component.
+
+  See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
+  for more info on Angular 2 Components.
+-->
+
+<ion-card>
+  <ion-card-header>
+    <input *ngIf="editable" [(ngModel)]="person.$key">
+    <button ion-item *ngIf="!editable" (click)="clickedPersonKey()">{{person.$key}}</button>
+    <div>--{{person.jobTitle}}</div>
+    <div>{{person.pullQuote}}</div>
+    <img [src]="person.picUrl">
+    <ion-card-content>
+      <ion-row>
+        <ion-item>{{person.demographics}}</ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-col><ion-item (click)="changedIt()">Goals</ion-item></ion-col>
+        <ion-col><ion-item>{{person.concerns}}</ion-item></ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card-header>
+</ion-card>

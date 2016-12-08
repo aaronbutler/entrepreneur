@@ -10,8 +10,10 @@ import { HomePage } from '../pages/home/home';
 import { ProjectOverviewPage } from '../pages/project-overview/project-overview';
 import { ProjectModalPage } from '../pages/project-modal/project-modal';
 import { GroupModalPage } from '../pages/group-modal/group-modal';
+import { PersonaModalPage } from '../pages/persona-modal/persona-modal';
 
 import { BasicHeaderComponent } from '../components/basic-header/basic-header';
+import { PersonaComponent } from '../components/persona/persona';
 
 import { AuthData } from '../providers/auth-data';
 import { AccessService } from '../providers/access-service';
@@ -47,7 +49,9 @@ export const firebaseConfig = {
     ProjectOverviewPage,
     ProjectModalPage,
     GroupModalPage,
-    BasicHeaderComponent
+    PersonaModalPage,
+    BasicHeaderComponent,
+    PersonaComponent
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -64,7 +68,8 @@ export const firebaseConfig = {
     ProdFitPage,
     ProjectOverviewPage,
     ProjectModalPage,
-    GroupModalPage
+    GroupModalPage,
+    PersonaModalPage,
   ],
   providers: [AuthData, AccessService, ProjectService, ImageService, PersonaService, StatusService, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

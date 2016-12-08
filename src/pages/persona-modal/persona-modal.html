@@ -1,0 +1,35 @@
+<!--
+  Generated template for the PersonaModal page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>personaModal</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-input [(ngModel)]="person.name"></ion-input>
+      <ion-input [(ngModel)]="person.jobTitle"></ion-input>
+      <ion-input [(ngModel)]="person.pullQuote"></ion-input>
+    </ion-card-header>
+    <img [src]="person.picUrl">
+    <ion-card-content>
+      <ion-input [(ngModel)]="person.demographics"></ion-input>
+      <ion-input [(ngModel)]="person.goals"></ion-input>
+      <ion-input [(ngModel)]="person.concerns"></ion-input>
+    </ion-card-content>
+  </ion-card>
+
+
+  <button ion-button (click)="dismiss()">Dismiss</button>
+  <button ion-button (click)="simpleAddPersona()">SAVE</button>
+</ion-content>

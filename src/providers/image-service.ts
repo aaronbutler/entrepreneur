@@ -7,10 +7,7 @@ import { Camera } from 'ionic-native';
 import { PersonaService } from './persona-service';
 
 /*
-  Generated class for the ImageService provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
+  ImageService should handle the camera only. Eventually it may also handle api to public image server.
 */
 @Injectable()
 export class ImageService {
@@ -107,8 +104,8 @@ export class ImageService {
     //this.projectService.getProject(group,project).update(p);
     let p = {};
     p["picUrl"] = url;
-    this.personaService.addPersona(group, project, name).update(p);
-    //this.personaService.savePic(url,group,project,name)
+    //this.personaService.addPersona(group, project, name).update(p);
+    
   }
 
   _generateRandomString(length: number): string {

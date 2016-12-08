@@ -8,6 +8,7 @@ import { BmcPage } from '../pages/bmc/bmc';
 import { PersonasPage } from '../pages/personas/personas';
 import { ProdFitPage } from '../pages/prod-fit/prod-fit';
 import { HomePage } from '../pages/home/home';
+import { ProjectOverviewPage } from '../pages/project-overview/project-overview';
 
 import { StatusService } from '../providers/status-service';
 
@@ -31,6 +32,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       //{ title: 'Page One', component: Page1 },
+      { title: 'Project Overview',component: ProjectOverviewPage},
       { title: 'Page Two', component: Page2 },
       { title: 'Business Model Canvas', component: BmcPage },
       { title: 'Personas', component: PersonasPage },
