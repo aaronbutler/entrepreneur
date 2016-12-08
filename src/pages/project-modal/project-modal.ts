@@ -3,8 +3,12 @@ import { NavController, ViewController } from 'ionic-angular';
 
 import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 
+import {Observable} from 'rxjs/Observable'; 
+
 import { ProjectService } from '../../providers/project-service';
 import { AccessService } from '../../providers/access-service';
+import { GroupService } from '../../providers/group-service';
+
 /*
   Generated class for the ProjectModal page.
 
@@ -19,8 +23,9 @@ export class ProjectModalPage {
 
   newP: any;
   accessGroups: FirebaseListObservable<any[]>;
+  groupServiceGroups: Observable<any[]>;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public projectService: ProjectService, public accessService: AccessService) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public projectService: ProjectService, public accessService: AccessService, public groupService: GroupService) {
     this.newP = {};
   }
 
@@ -28,6 +33,7 @@ export class ProjectModalPage {
     console.log('Hello ProjectModalPage Page');
     
     this.accessGroups = this.accessService.getGroups();
+    this.groupServiceGroups = this.groupService.getGroups();
   }
 
   click() {
@@ -46,11 +52,20 @@ export class ProjectModalPage {
 
 
   done() {
-    console.log(this.newP);
+    
+    let d = new Date().toString();
+    
+    let newProject = {"name": this.newP.title, "overview": {"description": this.newP.description, "creationDate":d }};
+    
+    this.groupService.getProjectsByGroup(this.newP["group"]).push(newProject);
+
+/*
     let p = {};
     let d = new Date();
     p[this.newP["title"]] = {"overview": {"description": this.newP["description"],"creationDate":d}};
     this.projectService.getGroup(this.newP["group"]).update(p);
+*/
+
     this.viewCtrl.dismiss();
   }
 

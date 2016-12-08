@@ -27,7 +27,10 @@
   <ion-item>
     <ion-label stacked>Group</ion-label>
     <ion-select [(ngModel)]= newP.group type="text">
-      <ion-option *ngFor="let g of accessGroups | async">{{g.$key}}</ion-option>
+      <!--<ion-option *ngFor="let g of accessGroups | async">{{g.name}}</ion-option>-->
+      
+        <ion-option *ngFor="let group of groupServiceGroups | async" value="{{ (group.g | async).$key }}" >{{(group.g | async)?.name}}</ion-option>
+      
     </ion-select>
   </ion-item>
 

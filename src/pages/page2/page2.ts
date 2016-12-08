@@ -1,8 +1,18 @@
 import { Component } from '@angular/core';
 
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 
 import { StatusService } from '../../providers/status-service';
+import { UserService } from '../../providers/user-service';
+import { GroupService } from '../../providers/group-service';
+
+import { ProjectOverviewPage } from '../project-overview/project-overview';
+import { ProjectModalPage } from '../project-modal/project-modal';
+import { GroupModalPage } from '../group-modal/group-modal';
+
+import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
+
+import {Observable} from 'rxjs/Observable'; 
 
 @Component({
   selector: 'page-page2',
@@ -12,10 +22,13 @@ export class Page2 {
   selectedItem: any;
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
+  user: FirebaseObjectObservable<any>;
+  groups: FirebaseListObservable<any[]>;
+  groupObservable: Observable<any[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public statusService: StatusService) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public statusService: StatusService, public userService: UserService, public groupService: GroupService) {
     // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
+    //this.selectedItem = navParams.get('item');
 
     // Let's populate this page with some filler content for funzies
     this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
@@ -29,12 +42,42 @@ export class Page2 {
         icon: this.icons[Math.floor(Math.random() * this.icons.length)]
       });
     }
+
+    this.user = this.userService.getUserObj();
+    this.groups = this.userService.getUsersGroups();
+    this.groupObservable = this.groupService.getUsersProjects();
   }
 
-  itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(Page2, {
-      item: item
-    });
+  openProject(group,project) {
+    console.log(project);
+    //getProject(group,project)
+    //this.statusService.setProject(this.projectService.getProject(group.$key,project.$key));
+    this.statusService.setGroupID(group.$key);
+    this.statusService.setProjID(project.$key);
+    //console.log(`${group.$key}--${project.$key}`);
+    this.navCtrl.setRoot(ProjectOverviewPage);
+  }
+
+
+
+
+
+  addNewProjectButton() {
+    //console.log(item);
+    let projectModal = this.modalCtrl.create(ProjectModalPage);
+    //console.log('created the modal');
+    projectModal.present();
+    //console.log('presented the modal');
+  }
+
+  addNewGroupButton() {
+    let groupModal = this.modalCtrl.create(GroupModalPage);
+    groupModal.present();
+  }
+
+  click() {
+    console.log(this.user);
+    console.log(this.groups);
+    console.log(this.groupObservable);
   }
 }

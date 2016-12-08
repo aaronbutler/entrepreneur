@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController,ViewController } from 'ionic-angular';
 import { ProjectService } from '../../providers/project-service';
 import { AccessService } from '../../providers/access-service';
+import { GroupService } from '../../providers/group-service';
+import { UserService } from '../../providers/user-service';
 
 /*
   Generated class for the GroupModal page.
@@ -18,7 +20,7 @@ export class GroupModalPage {
   newG: any;
   occupied = {"occupied": {"overview": {"description": true}}};
 
-  constructor(public navCtrl: NavController,public viewCtrl:ViewController,  public projectService: ProjectService, public accessService: AccessService) {
+  constructor(public navCtrl: NavController,public viewCtrl:ViewController,  public projectService: ProjectService, public accessService: AccessService,public groupService: GroupService,public userService: UserService) {
     this.newG = {};
   }
 
@@ -27,15 +29,30 @@ export class GroupModalPage {
     
   }
 
+/*
+  -retrieve usergroups from userservice
+  -push group to list
+*/
   done() {
-    let g = {};
+    let groups = this.userService.getUsersGroups();
+    let g = {"placeholder":true};
+    
+    
+    let key = groups.push(g).key;
+    
+    let newGroup = {};
+    newGroup[key] = {"name":this.newG['title']};
+
+    this.groupService.addGroupObj(newGroup);
+
+    /*let g = {};
     g[this.newG["title"]] = true;
     this.accessService.getGroupsObj().update(g);
     let gp = {};
 
     gp[this.newG["title"]] = this.occupied;
-    //gp["occupied"] = occupied;
-    this.projectService.addGroup(gp);
+    
+    this.projectService.addGroup(gp);*/
 
     this.viewCtrl.dismiss();
   }

@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import { FirebaseObjectObservable} from 'angularfire2';
 
 import { StatusService } from '../../providers/status-service';
+import { GroupService } from '../../providers/group-service';
 
 /*
   Generated class for the ProjectOverview page.
@@ -22,9 +23,12 @@ export class ProjectOverviewPage {
   project: FirebaseObjectObservable<any>;
   title: string;
 
-  constructor(public navCtrl: NavController, public statusService: StatusService) {
+  constructor(public navCtrl: NavController, public statusService: StatusService, public groupService: GroupService) {
     this.title = "Project Overview";
-    this.project = this.statusService.getCurrentProject();
+    //this.project = this.statusService.getCurrentProject();
+
+    this.project = this.groupService.getProjectObj(this.statusService.getGroupID(), this.statusService.getProjID());
+
     //this.project = navParams.get('project');
     /*this.project.subscribe((p) => {
       this.title = p.$key;

@@ -44,4 +44,9 @@ export class AuthData {
     return this.fireAuth.email;
   }
 
+  getUid(): string {
+
+    return this.fireAuth.uid;
+  }
+
 }

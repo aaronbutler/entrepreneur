@@ -3,7 +3,37 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-item>{{(user | async) | json}}</ion-item>
+  <ion-item> {{(groups | async) | json}}</ion-item>
+  <!--<ion-item>{{(projects | async) | json}}</ion-item>-->
+  <ion-item>{{(user | async)?.name}}</ion-item>
+  <ion-item>{{(user | async)?.email}}</ion-item>
+
+  
+  
+  <ion-grid>
+  <ion-item-group *ngFor="let group of groupObservable | async">
+
+    <ion-item-divider light>Edit Group: {{(group.g | async)?.name}}</ion-item-divider>
+
+    <ion-row *ngFor="let p of group.projects | async" >
+      
+        <ion-item (click)="openProject(group,p)">{{p.name}}</ion-item>
+      
+        <!--<ion-item *ngIf="unoccupied(p)" (click)="clickButton(p)">{{p.$key}} -- {{p.overview.description}}
+          <button ion-button block (click)="clickButton(p)">
+            <ion-icon name="open"></ion-icon>
+            <div class="space">{{p.$key}}</div>
+            <div class="space">{{p.overview.description}}</div>  
+          </button>
+        </ion-item>-->
+     
+    </ion-row>
+  </ion-item-group>
+
+
+   </ion-grid>
+  <!--<ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
       <ion-icon [name]="item.icon" item-left></ion-icon>
       {{item.title}}
@@ -11,8 +41,17 @@
         {{item.note}}
       </div>
     </button>
-  </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
+  </ion-list>-->
+
+  <ion-fab right bottom class="fab-cont">
+    <button ion-fab color="light"><ion-icon name="arrow-dropleft"></ion-icon></button>
+    <ion-fab-list side="left">
+      <button ion-fab mini class="adder" (click)="addNewProjectButton()"><ion-icon class="stack" name="add-circle"></ion-icon><div class="stack">Project</div></button>
+      <button ion-fab mini class="adder" (click)="addNewGroupButton()"><ion-icon name="add-circle" class="stack"></ion-icon><div stack="class">Group</div></button>
+      
+    </ion-fab-list>
+  </ion-fab>
+
+
+  
 </ion-content>

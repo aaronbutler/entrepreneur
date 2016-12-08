@@ -44,7 +44,8 @@ export class MyApp {
   initializeApp(af: AngularFire) {
      af.auth.subscribe( user => {
         if (user) {
-          this.rootPage = HomePage;
+          //this.rootPage = HomePage;
+          this.rootPage = Page2;
         } else {
           this.rootPage = Page1;
         }
