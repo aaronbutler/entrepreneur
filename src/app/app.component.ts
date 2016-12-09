@@ -1,5 +1,5 @@
-import { Component, ViewChild, Inject } from '@angular/core';
-import { Nav, NavController, Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { Page1 } from '../pages/page1/page1';
@@ -71,9 +71,8 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component).then((data) => {
-      this.log.log(3,"MyApp","openPage",'setting root',page.component);
-      console.log(data);
-      console.log(this.statusService);
+      this.log.log(3,"MyApp","openPage",'setting root',page.component,"data",data,"statusService",this.statusService);
+      
     })
     //this.nav.push(page.component);
   }

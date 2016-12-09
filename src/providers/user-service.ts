@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
+import {AngularFire, FirebaseListObservable } from 'angularfire2';
 
 import { AuthData } from './auth-data';
 import { LogService } from './log-service';

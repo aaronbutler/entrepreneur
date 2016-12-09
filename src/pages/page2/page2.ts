@@ -11,7 +11,7 @@ import { ProjectOverviewPage } from '../project-overview/project-overview';
 import { ProjectModalPage } from '../project-modal/project-modal';
 import { GroupModalPage } from '../group-modal/group-modal';
 
-import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
+import { FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 
 import {Observable} from 'rxjs/Observable'; 
 

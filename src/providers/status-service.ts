@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import {Observable} from 'rxjs/Observable'; 
+import { LogService } from './log-service';
+
 
 import {FirebaseObjectObservable} from 'angularfire2';
 
@@ -17,8 +18,8 @@ export class StatusService {
   groupID: string;
   projID: string;
 
-  constructor() {
-    console.log('Hello StatusService Provider');
+  constructor(public log: LogService) {
+    
   }
 
   setProject(project) {
@@ -37,11 +38,9 @@ export class StatusService {
   }
 
   getCurrentProject():FirebaseObjectObservable<any>{
-    console.log('StatusService getCurrentProject');
-    console.log(this.currentProject);
-    console.log(this.cp);
+    this.log.log(3,"StatusService","getCurrentProject","currentProject",this.currentProject,"cp",this.cp);
+    
     return this.currentProject;
-    //return this.cp;
   }
 
   getGroupID(): string {

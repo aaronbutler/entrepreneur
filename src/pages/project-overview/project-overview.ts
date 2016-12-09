@@ -1,7 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
-import { Nav, NavController,NavParams } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
 
-import {Observable} from 'rxjs/Observable'; 
 import { FirebaseObjectObservable} from 'angularfire2';
 
 import { StatusService } from '../../providers/status-service';
